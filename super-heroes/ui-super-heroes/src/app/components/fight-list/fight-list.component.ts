@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { Fight, FightService } from '../shared';
+import { Fight, FightService } from '../../shared';
 import {MatTableDataSource} from "@angular/material";
 
 @Component({

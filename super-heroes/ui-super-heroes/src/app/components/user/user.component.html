@@ -1,0 +1,9 @@
+<div id="search-component">
+  <h4>User Search</h4>
+</div>
+
+<ul class="users">
+  <li *ngFor="let user of users">
+      <span class="badge">{{user.id}}</span> {{user.username}}
+  </li>
+</ul>

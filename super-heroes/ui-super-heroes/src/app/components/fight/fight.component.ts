@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Fighters, FightService, Hero, Villain } from '../shared';
+import { Fighters, FightService, Hero, Villain } from '../../shared';
 
 @Component({
   selector: 'hero-fight',
@@ -30,4 +30,3 @@ export class FightComponent implements OnInit {
     this.winner = null;
     this.fightService.apiFightsRandomfightersGet().subscribe(figthers => this.figthers = figthers);
   }
-}
