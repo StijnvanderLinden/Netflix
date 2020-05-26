@@ -1,5 +1,5 @@
 #
-#Tue Apr 07 13:07:47 CEST 2020
+#Wed Apr 08 15:32:04 CEST 2020
 io.quarkus.workshop.superheroes.quack.runtime.QuackConfig.faultStatusCode=Configure the fault status code.
 io.quarkus.workshop.superheroes.quack.runtime.QuackConfig.faultRatio=Ratio (between 0 and 1) of request impacted by a fault injection.\n1 means that all the request are faulty. 0 means none.\nDefaults is 0.33.
 io.quarkus.workshop.superheroes.quack.runtime.QuackConfig.enabled=Enables / Disables the extension.
