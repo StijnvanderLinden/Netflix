@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/API-Gateway/API-Gateway.iml" filepath="$PROJECT_DIR$/API-Gateway/API-Gateway.iml" />
       <module fileurl="file://$PROJECT_DIR$/AccountService/AccountService.iml" filepath="$PROJECT_DIR$/AccountService/AccountService.iml" />
-      <module fileurl="file://$PROJECT_DIR$/AuthenticationService/AuthenticationService.iml" filepath="$PROJECT_DIR$/AuthenticationService/AuthenticationService.iml" />
       <module fileurl="file://$PROJECT_DIR$/FrontEnd/FrontEnd.iml" filepath="$PROJECT_DIR$/FrontEnd/FrontEnd.iml" />
       <module fileurl="file://$PROJECT_DIR$/Netflix.iml" filepath="$PROJECT_DIR$/Netflix.iml" />
       <module fileurl="file://$PROJECT_DIR$/VideoService/VideoService.iml" filepath="$PROJECT_DIR$/VideoService/VideoService.iml" />

@@ -42,7 +42,7 @@ public class AccountService {
         return account;
     }
 
-    public Account updateAccount(@Valid Account account) {
+    public Account updateUsername(@Valid Account account) {
         Account entity = Account.findById(account.id);
         entity.username = account.username;
         return entity;
@@ -53,10 +53,6 @@ public class AccountService {
         account.delete();
     }
 
-    public Profile createProfile(String username){
-        Profile profile = new Profile(username);
-        Profile.persist(profile);
-        return profile;
-    }
+
 }
 

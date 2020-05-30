@@ -2,11 +2,7 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-      </profile>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Annotation profile for Quarkus Workshop :: Super-Heroes - R00T" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
@@ -37,6 +33,7 @@
       <module name="extension-fault-injector-deployment" target="1.8" />
       <module name="extension-fault-injector-parent" target="1.8" />
       <module name="load-super-heroes" target="1.8" />
+      <module name="Netflix" target="8" />
       <module name="rest-villain" target="1.8" />
       <module name="super-parent-root" target="8" />
       <module name="ui-super-heroes" target="1.8" />

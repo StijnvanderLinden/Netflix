@@ -13,6 +13,6 @@ export class AccountService {
   constructor(private http: HttpClient) { }
 
   getAccount(id: number) {
-    return this.http.get<Account>(`${this.url}/accounts/` + id.toString());
+    return this.http.get<Account>(`${this.url}/account/` + id.toString());
   }
 }

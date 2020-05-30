@@ -1,0 +1,11 @@
+main\java\Resource\VideoResource.class
+main\java\Service\VideoService.class
+main\java\Resource\AccountResource.class
+main\java\Model\Category.class
+main\java\Model\Profile.class
+main\java\Resource\CategoryResource.class
+main\java\Service\AccountService.class
+main\java\Service\CategoryService.class
+main\java\Resource\ProfileResource.class
+main\java\Service\ProfileService.class
+main\java\Model\Account.class

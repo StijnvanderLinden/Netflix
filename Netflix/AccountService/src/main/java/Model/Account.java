@@ -3,6 +3,7 @@ package main.java.Model;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import java.util.List;
 import java.util.Random;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import org.jetbrains.annotations.NotNull;
 import javax.validation.constraints.Size;
@@ -14,6 +15,7 @@ public class Account extends PanacheEntity {
     @Size(min = 3, max = 50)
     public String username;
     public String password;
+    @ElementCollection
     public List<Profile> profiles;
 
     public static Account findRandom() {
