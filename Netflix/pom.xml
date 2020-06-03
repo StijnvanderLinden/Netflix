@@ -87,12 +87,6 @@
       <artifactId>microprofile-rest-client-api</artifactId>
       <version>1.4.1</version>
     </dependency>
-    <dependency>
-      <groupId>io.openliberty.features</groupId>
-      <artifactId>com.ibm.websphere.appserver.org.eclipse.microprofile.faulttolerance-2.0
-      </artifactId>
-      <version>20.0.0.3</version>
-    </dependency>
       <dependency>
           <groupId>org.eclipse.microprofile.health</groupId>
           <artifactId>microprofile-health-api</artifactId>
@@ -165,10 +159,9 @@
     -->
 
     <modules>
-        <module>extensions/extension-fault-injector</module>
-        <module>super-heroes/rest-villain</module>
-        <module>super-heroes/ui-super-heroes</module>
-        <module>super-heroes/load-super-heroes</module>
+        <module>AuthenticationService</module>
+        <module>AccountService</module>
+<!--        <module>VideoService</module>-->
     </modules>
 
     <profiles>

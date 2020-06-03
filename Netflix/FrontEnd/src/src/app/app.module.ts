@@ -26,6 +26,10 @@ import {Router} from "@angular/router";
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderButtonsComponent } from './components/header-buttons/header-buttons.component';
 import {AuthGuard} from "./JWT/AuthGuard";
+import { VideoComponent } from './components/video/video.component';
+import {MatSelectModule} from "@angular/material/select";
+import { VideoListComponent } from './components/video-list/video-list.component';
+import { VideoDescriptionComponent } from './components/video-description/video-description.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +40,10 @@ import {AuthGuard} from "./JWT/AuthGuard";
     ProfileComponent,
     MovieComponent,
     HeaderComponent,
-    HeaderButtonsComponent
+    HeaderButtonsComponent,
+    VideoComponent,
+    VideoListComponent,
+    VideoDescriptionComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +56,7 @@ import {AuthGuard} from "./JWT/AuthGuard";
     MatTableModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     ReactiveFormsModule,
     routing,
     MatToolbarModule,

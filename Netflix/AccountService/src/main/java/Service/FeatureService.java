@@ -1,4 +1,4 @@
-package main.java.Service;
+package Service;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
@@ -7,9 +7,8 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import main.java.Model.Account;
-import main.java.Model.Feature;
-import main.java.Model.Profile;
+import Model.Feature;
+import Model.Profile;
 
 @ApplicationScoped
 @Transactional(REQUIRED)

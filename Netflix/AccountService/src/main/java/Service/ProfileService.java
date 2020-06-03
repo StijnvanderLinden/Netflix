@@ -1,14 +1,13 @@
-package main.java.Service;
+package Service;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
 
+import Model.Profile;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import main.java.Model.Account;
-import main.java.Model.Profile;
 
 @ApplicationScoped
 @Transactional(REQUIRED)
@@ -30,8 +29,8 @@ public class ProfileService {
     }
 
     @Transactional(SUPPORTS)
-    public List<Profile> findProfilesByAccount(Account account) {
-        return Profile.findByAccount(account);
+    public List<Profile> findProfilesByAccountId(long id) {
+        return Profile.find("account_id", id).list();
     }
 
     public Profile persistProfile(@Valid Profile profile) {

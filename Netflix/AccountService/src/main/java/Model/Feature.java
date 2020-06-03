@@ -1,4 +1,4 @@
-package main.java.Model;
+package Model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import javax.persistence.CascadeType;
@@ -15,24 +15,15 @@ public class Feature extends PanacheEntity {
     public int seconds;
     public boolean favorite;
 
-    public Feature(Profile profile, Video video, int seconds) {
-        this.profile = profile;
-        this.video = video;
-        this.seconds = seconds;
-    }
-
-    public Feature(Profile profile, Video video, boolean favorite) {
-        this.profile = profile;
-        this.video = video;
-        this.favorite = favorite;
-    }
-
     public static Profile findByUsername(String username){
         return find("username", username).firstResult();
     }
 
     public static void create(Profile profile, Video video, int seconds){
-        Feature time = new Feature(profile, video, seconds);
+        Feature time = new Feature();
+        time.profile = profile;
+        time.video = video;
+        time.seconds = seconds;
         Feature.persist(time);
     }
 

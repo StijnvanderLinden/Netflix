@@ -1,0 +1,6 @@
+Service\AccountService.class
+ServiceBus\Sender.class
+Model\Account.class
+JWT\GenerateToken.class
+JWT\TokenUtils.class
+Resource\AccountResource.class

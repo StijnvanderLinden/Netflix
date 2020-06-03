@@ -1,6 +1,8 @@
 import {Category} from "./category";
 
 export class Profile {
+  id: number;
   username: string;
-  recommended: Category[];
+  account: Account;
+
 }

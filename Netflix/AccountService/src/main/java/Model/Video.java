@@ -1,4 +1,4 @@
-package main.java.Model;
+package Model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import java.util.List;
@@ -13,13 +13,6 @@ public class Video extends PanacheEntity {
     @ElementCollection
     public List<String> cast;
     public int duration;
-
-    public Video(String title, String description, List<String> cast, int duration) {
-        this.title = title;
-        this.description = description;
-        this.cast = cast;
-        this.duration = duration;
-    }
 
     public static Video findByTitle(String title){
         return find("title", title).firstResult();

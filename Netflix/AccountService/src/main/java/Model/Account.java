@@ -1,12 +1,13 @@
-package main.java.Model;
+package Model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import java.util.List;
 import java.util.Random;
-import javax.persistence.ElementCollection;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import org.jetbrains.annotations.NotNull;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Size;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 public class Account extends PanacheEntity {
@@ -14,8 +15,7 @@ public class Account extends PanacheEntity {
     @NotNull
     @Size(min = 3, max = 50)
     public String username;
-    public String password;
-    @ElementCollection
+    @OneToMany(cascade = CascadeType.PERSIST)
     public List<Profile> profiles;
 
     public static Account findRandom() {

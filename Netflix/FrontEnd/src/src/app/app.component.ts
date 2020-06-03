@@ -23,10 +23,6 @@ export class AppComponent {
   profile() {
     this.router.navigate(['/profile']);
   }
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
   register() {
     this.router.navigate(['/register']);
   }

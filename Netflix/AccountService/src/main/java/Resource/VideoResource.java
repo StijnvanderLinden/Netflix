@@ -1,4 +1,4 @@
-package main.java.Resource;
+package Resource;
 
 public class VideoResource {
 

@@ -1,14 +1,13 @@
-package main.java.Service;
-
-import javax.enterprise.context.ApplicationScoped;
-import javax.transaction.Transactional;
-import javax.validation.Valid;
-import java.util.List;
-import main.java.Model.Account;
-import main.java.Model.Profile;
+package Service;
 
 import static javax.transaction.Transactional.TxType.REQUIRED;
 import static javax.transaction.Transactional.TxType.SUPPORTS;
+
+import Model.Account;
+import java.util.List;
+import javax.enterprise.context.ApplicationScoped;
+import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 @ApplicationScoped
 @Transactional(REQUIRED)
@@ -21,6 +20,7 @@ public class AccountService {
 
     @Transactional(SUPPORTS)
     public Account findAccountById(Long id) {
+        System.out.println(id);
         return Account.findById(id);
     }
 
@@ -42,12 +42,22 @@ public class AccountService {
         return account;
     }
 
+    @Transactional(SUPPORTS)
+    public Account updateAccount(@Valid Account account) {
+        Account entity = Account.findById(account.id);
+        entity.username = account.username;
+        entity.profiles = account.profiles;
+        return account;
+    }
+
+    @Transactional(SUPPORTS)
     public Account updateUsername(@Valid Account account) {
         Account entity = Account.findById(account.id);
         entity.username = account.username;
         return entity;
     }
 
+    @Transactional(SUPPORTS)
     public void deleteAccount(Long id) {
         Account account = Account.findById(id);
         account.delete();
