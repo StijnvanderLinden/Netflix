@@ -1,7 +1,6 @@
 package Resource;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.OK;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 
 import JWT.GenerateToken;
@@ -50,7 +49,7 @@ public class AccountResource {
     @Path("/login")
     @PermitAll
     public Response login(Account account) throws Exception {
-        Account account1 = Account.findByUsername(account.username);
+        Account account1 = accountService.login(account);
         if(account1 != null){
             JsonObject result = Json.createObjectBuilder()
                 .add("username", account1.username)
@@ -68,10 +67,9 @@ public class AccountResource {
     @PermitAll
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(Account account) throws Exception {
-        System.out.println("username: " + account.username);
-        accountService.persistAccount(account);
+        Account account1 = accountService.persistAccount(account);
         sender.sendAccount(account);
-        return Response.status(OK).build();
+        return Response.ok(account1).build();
     }
 
     @Operation(summary = "Returns a random account")

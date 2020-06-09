@@ -12,7 +12,11 @@ export class VideoService {
 
   constructor(private http: HttpClient) { }
 
-  getVideos(id: number): Observable<Video[]> {
+  getVideo(id: number): Observable<Video[]> {
     return this.http.get<Video[]>(`${this.url}/video/` + id.toString());
+  }
+
+  getVideos(): Observable<Video[]> {
+    return this.http.get<Video[]>(`${this.url}/video`);
   }
 }

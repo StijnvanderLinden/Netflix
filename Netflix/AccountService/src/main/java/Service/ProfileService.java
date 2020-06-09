@@ -30,7 +30,9 @@ public class ProfileService {
 
     @Transactional(SUPPORTS)
     public List<Profile> findProfilesByAccountId(long id) {
-        return Profile.find("account_id", id).list();
+        List<Profile> profiles = Profile.find("account_id", id).list();
+        System.out.println(profiles);
+        return profiles;
     }
 
     public Profile persistProfile(@Valid Profile profile) {

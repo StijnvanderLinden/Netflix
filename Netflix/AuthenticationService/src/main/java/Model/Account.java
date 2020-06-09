@@ -25,6 +25,8 @@ public class Account extends PanacheEntity {
         return find("username", username).firstResult();
     }
 
+
+
     @Override
     public String toString() {
         return "Account{" +

@@ -1,0 +1,6 @@
+main\java\Resource\CategoryResource.class
+main\java\Service\CategoryService.class
+main\java\Resource\VideoResource.class
+main\java\Model\Video.class
+main\java\Service\VideoService.class
+main\java\Model\Category.class

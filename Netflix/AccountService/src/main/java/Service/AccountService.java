@@ -21,20 +21,11 @@ public class AccountService {
     @Transactional(SUPPORTS)
     public Account findAccountById(Long id) {
         System.out.println(id);
-        return Account.findById(id);
+        return Account.find("id", id).firstResult();
     }
 
-    public Account findAccountByName(String name) {
-        return Account.findByUsername(name);
-    }
-
-    @Transactional(SUPPORTS)
-    public Account findRandomAccount() {
-        Account randomAccount = null;
-        while (randomAccount == null) {
-            randomAccount = Account.findRandom();
-        }
-        return randomAccount;
+    public Account findAccountByName(String username) {
+        return Account.find("username", username).firstResult();
     }
 
     public Account persistAccount(@Valid Account account) {

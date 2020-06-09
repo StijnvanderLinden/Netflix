@@ -2,7 +2,6 @@ package Model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.Size;
@@ -15,8 +14,7 @@ public class Profile extends PanacheEntity {
     @Size(min = 3, max = 50)
     public String username;
 
-
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne
     public Account account;
 
     public static Profile findByUsername(String username){

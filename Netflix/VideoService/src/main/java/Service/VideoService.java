@@ -13,16 +13,16 @@ import main.java.Model.Video;
 @Transactional(REQUIRED)
 public class VideoService {
     @Transactional(SUPPORTS)
-    public List<Video> findAllFeatures() {
+    public List<Video> findAllVideos() {
         return Video.listAll();
     }
 
     @Transactional(SUPPORTS)
-    public Video findFeatureById(Long id) {
+    public Video findVideoById(Long id) {
         return Video.findById(id);
     }
 
-    public Video persistFeature(@Valid Video profile) {
+    public Video persistVideo(@Valid Video profile) {
         Video.persist(profile);
         return profile;
     }

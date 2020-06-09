@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AuthenticationService} from "../../services/authentication.service";
 import {first} from 'rxjs/operators';
 import {AccountService} from "../../services/account.service";
+import {Account} from "../../models/account";
 
 @Component({
   selector: 'app-register',
@@ -42,17 +43,12 @@ export class RegisterComponent implements OnInit {
     }
 
     this.loading = true;
-    this.accountService.register(this.form.username.value, this.form.password.value)
+    this.authenticationService.register(this.form.username.value, this.form.password.value)
     .pipe(first())
     .subscribe(
       data => {
-        this.authenticationService.register(this.form.username.value, this.form.password.value)
-        .pipe()
-        .subscribe(
-          data => {
-            this.router.navigate(['/login']);
-          })
-      },
+          this.router.navigate(['/login']);
+        },
       error => {
         this.error = error;
         this.loading = false;

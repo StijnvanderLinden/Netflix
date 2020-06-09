@@ -2,7 +2,7 @@ package Model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import java.util.List;
-import java.util.Random;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -15,25 +15,16 @@ public class Account extends PanacheEntity {
     @NotNull
     @Size(min = 3, max = 50)
     public String username;
-    @OneToMany(cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    @JsonbTransient
     public List<Profile> profiles;
-
-    public static Account findRandom() {
-        long accounts = Account.count();
-        Random random = new Random();
-        int randomAccount = random.nextInt((int) accounts);
-        return Profile.findAll().page(randomAccount, 1).firstResult();
-    }
-
-    public static Account findByUsername(String username){
-        return find("username", username).firstResult();
-    }
 
     @Override
     public String toString() {
-        return "Account{" +
+        String string = "Account{" +
             "id=" + id +
-            ", name='" + username + '\'' +
-            '}';
+            ", name='" + username + '\'';
+            return string;
     }
 }

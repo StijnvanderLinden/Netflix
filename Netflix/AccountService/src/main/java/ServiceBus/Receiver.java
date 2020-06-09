@@ -4,6 +4,7 @@ import static ServiceBus.Sender.connectionString;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import Model.Account;
+import Service.AccountService;
 import com.google.gson.Gson;
 import com.microsoft.azure.servicebus.ExceptionPhase;
 import com.microsoft.azure.servicebus.IMessage;
@@ -17,19 +18,22 @@ import java.time.Duration;
 import java.util.concurrent.CompletableFuture;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
+import javax.inject.Inject;
 
 @ApplicationScoped
 public class Receiver {
 
     static final Gson GSON = new Gson();
 
+    @Inject
+    private AccountService accountService;
+
     void onStart(@Observes StartupEvent event) throws Exception {
         SubscriptionClient subscription1Client = new SubscriptionClient(new ConnectionStringBuilder(connectionString, "topictest/subscriptions/S1"), ReceiveMode.PEEKLOCK);
         registerMessageHandlerOnClient(subscription1Client);
-
     }
 
-    static void registerMessageHandlerOnClient(SubscriptionClient receiveClient) throws Exception {
+    void registerMessageHandlerOnClient(SubscriptionClient receiveClient) throws Exception {
         // register the RegisterMessageHandler callback
         IMessageHandler messageHandler = new IMessageHandler() {
             // callback invoked when the message handler loop has obtained a message
@@ -41,8 +45,8 @@ public class Receiver {
 
                     byte[] body = message.getBody();
                     Account account = GSON.fromJson(new String(body, UTF_8), Account.class);
-                    System.out.println(account);
-//                    Account.persist(account);
+                    account.id = null;
+                    accountService.persistAccount(account);
                 }
                 return receiveClient.completeAsync(message.getLockToken());
             }

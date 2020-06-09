@@ -5,6 +5,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import Model.Account;
 import Model.Profile;
 import Service.ProfileService;
+import java.util.List;
 import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -45,6 +46,23 @@ public class ProfileResource {
             return Response.noContent().build();
         }
     }
+
+    @Operation(summary = "Returns a profile for a given identifier")
+    @APIResponse(responseCode = "200", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Account.class)))
+    @APIResponse(responseCode = "204", description = "The profile is not found for a given identifier")
+    @GET
+    @Path("/account/{id}")
+    public Response getProfilesByAccountId(
+        @Parameter(description = "Account identifier", required = true)
+        @PathParam("id") Long id) {
+        List<Profile> profiles = profileService.findProfilesByAccountId(id);
+        if (profiles != null) {
+            return Response.ok(profiles).build();
+        } else {
+            return Response.noContent().build();
+        }
+    }
+
 
     @Operation(summary = "Creates a profile")
     @APIResponse(responseCode = "200", description = "The created profile", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Account.class)))

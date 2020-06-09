@@ -1,12 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {Account} from "../../models/account";
-import {Subscription} from "rxjs";
-import {Profile} from "../../models/profile";
-import {ProfileService} from "../../services/profile.service";
-import {AuthenticationService} from "../../services/authentication.service";
-import {Router} from "@angular/router";
+import {Component, Input, OnInit} from '@angular/core';
 import {Video} from "../../models/video";
-import {VideoService} from "../../services/video.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'hero-video',
@@ -15,18 +9,16 @@ import {VideoService} from "../../services/video.service";
 })
 export class VideoComponent implements OnInit {
 
-  currentUser: Account;
-  currentUserSubscription: Subscription;
-  videos: Video[];
+  video: Video;
 
-  constructor(private videoService: VideoService,
-              private authenticationService: AuthenticationService,
-              private router: Router) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => { this.currentUser = user; });
-  }
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.videoService.getVideos(this.currentUser.id).subscribe(videos => this.videos = videos);
+    this.video = history.state.data;
+    if(this.video == null){
+      this.router.navigate(['/videos']);
+    }
   }
 
 }

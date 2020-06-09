@@ -44,6 +44,7 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(Account account) throws Exception {
         System.out.println("username: " + account.username);
+        System.out.println("id: " + account.id);
         accountService.persistAccount(account);
         return Response.status(OK).build();
     }
@@ -66,7 +67,6 @@ public class AccountResource {
         @Parameter(description = "Account identifier", required = true)
         @PathParam("id") Long id) {
         Account account = accountService.findAccountById(id);
-        account.profiles = profileService.findProfilesByAccountId(id);
         if (account != null) {
             return Response.ok(account).build();
         } else {

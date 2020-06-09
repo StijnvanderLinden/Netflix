@@ -13,6 +13,14 @@ import javax.validation.Valid;
 @Transactional(REQUIRED)
 public class AccountService {
 
+    public Account login(Account account){
+        Account result = account.find("username", account.username).firstResult();
+        if(result.password.equals(account.password)){
+            return result;
+        }
+        return null;
+    }
+
     @Transactional(SUPPORTS)
     public List<Account> findAllAccounts() {
         return Account.listAll();

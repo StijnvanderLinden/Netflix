@@ -17,6 +17,10 @@ export class ProfileService {
     return this.http.get<Profile>(`${this.url}/profile/` + id.toString());
   }
 
+  getProfilesByAccountId(id: number): Observable<Profile[]> {
+    return this.http.get<Profile[]>(`${this.url}/profile/account/` + id.toString());
+  }
+
   create(profile: Profile) {
     return this.http.post<any>(`${this.url}/profile`, profile);
   }

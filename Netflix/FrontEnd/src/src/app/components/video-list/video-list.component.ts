@@ -7,7 +7,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'hero-video-list',
+  selector: 'app-video-list',
   templateUrl: './video-list.component.html',
   styles: []
 })
@@ -24,7 +24,7 @@ export class VideoListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.videoService.getVideos(this.currentUser.id).subscribe(videos => this.videos = videos);
+    this.videoService.getVideos().subscribe(videos => this.videos = videos);
   }
 
 }

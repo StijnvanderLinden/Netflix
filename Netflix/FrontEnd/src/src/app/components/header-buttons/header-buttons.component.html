@@ -3,7 +3,7 @@
         <mat-icon>account_circle</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="account()">
             <span>My account</span>
         </button>
         <button mat-menu-item (click)="logout()">

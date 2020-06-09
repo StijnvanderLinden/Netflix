@@ -17,8 +17,8 @@ export class AccountService {
     return this.http.get<Account>(`${this.url}/account/` + id.toString());
   }
 
-  register(username: string, password: string): Observable<Account> {
-    const user = {username: username, password: password};
+  register(id: number, username: string): Observable<Account> {
+    const user = {accountId: id, username: username};
     return this.http.post<any>(`${this.url}/account/register`, user);
   }
 }

@@ -1,2 +1,8 @@
-<app-header></app-header>
-<p>video works!</p>
+<video id="vid1"
+       height="300"
+       controls
+       autoplay
+       data-setup='{"techOrder": ["azureHtml5JS", "flashSS", "html5FairPlayHLS","silverlightSS", "html5"], "nativeControlsForTouch": false}'
+       class="azuremediaplayer amp-default-skin">
+    <source src="{{this.video.url}}">
+</video>

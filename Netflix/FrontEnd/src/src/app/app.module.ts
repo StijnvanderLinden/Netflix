@@ -26,10 +26,12 @@ import {Router} from "@angular/router";
 import { HeaderComponent } from './components/header/header.component';
 import { HeaderButtonsComponent } from './components/header-buttons/header-buttons.component';
 import {AuthGuard} from "./JWT/AuthGuard";
-import { VideoComponent } from './components/video/video.component';
 import {MatSelectModule} from "@angular/material/select";
 import { VideoListComponent } from './components/video-list/video-list.component';
 import { VideoDescriptionComponent } from './components/video-description/video-description.component';
+import { VideoListItemComponent } from './components/video-list-item/video-list-item.component';
+import { ProfileListItemComponent } from './components/profile-list-item/profile-list-item.component';
+import { VideoComponent } from './components/video/video.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +43,11 @@ import { VideoDescriptionComponent } from './components/video-description/video-
     MovieComponent,
     HeaderComponent,
     HeaderButtonsComponent,
-    VideoComponent,
     VideoListComponent,
-    VideoDescriptionComponent
+    VideoDescriptionComponent,
+    VideoListItemComponent,
+    ProfileListItemComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,

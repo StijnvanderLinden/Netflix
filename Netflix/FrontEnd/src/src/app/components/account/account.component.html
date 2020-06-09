@@ -1,8 +1,11 @@
 <app-header></app-header>
-<div *ngIf="account.id == 1">
-    <p>{{account.id}}</p>
+
+<div class="margin-small" *ngIf="account.profiles != null">
+    <app-profile-list-item *ngFor="let profile of this.account.profiles" [profile]="profile">
+    </app-profile-list-item>
 </div>
-<div *ngIf="account.profiles.length == 0">
+
+<div class="margin-big">
     <form [formGroup]="createProfile" (ngSubmit)="onCreateProfile()">
         <mat-form-field appearance="fill">
             <input matInput placeholder="Name" type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && form.name.errors }">
@@ -19,4 +22,3 @@
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
     </form>
 </div>
-

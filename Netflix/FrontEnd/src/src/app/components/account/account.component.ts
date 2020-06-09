@@ -37,12 +37,17 @@ export class AccountComponent implements OnInit {
       username: ['', Validators.required]
     });
     this.getAccount();
+    this.getProfiles();
   }
 
   get form() { return this.createProfile.controls; }
 
   getAccount(): void {
     this.accountService.getAccount(this.currentUser.id).subscribe(account => this.account = account);
+  }
+
+  getProfiles(): void {
+    this.profileService.getProfilesByAccountId(this.currentUser.id).subscribe(profiles => this.account.profiles = profiles);
   }
 
   onCreateProfile() {
@@ -60,7 +65,7 @@ export class AccountComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
-        this.router.navigate(['/video']);
+        this.router.navigate(['/videos']);
       },
       error => {
         this.error = 'error';

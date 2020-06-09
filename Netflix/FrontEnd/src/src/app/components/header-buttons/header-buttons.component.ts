@@ -21,6 +21,10 @@ export class HeaderButtonsComponent implements OnInit {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
   }
 
+  account(){
+    this.router.navigate(['/account'])
+  }
+
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
