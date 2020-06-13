@@ -1,4 +1,8 @@
 <div *ngIf="currentUser">
+    <ng-template [ngIf]="currentProfile">
+        <button mat-button routerLink="/videos" routerLinkActive="active">Videos</button>
+        <button mat-button routerLink="/favorites" routerLinkActive="active">Favorites</button>
+    </ng-template>
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>account_circle</mat-icon>
     </button>

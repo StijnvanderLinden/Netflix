@@ -7,6 +7,7 @@ import {AuthGuard} from "./JWT/AuthGuard";
 import {VideoListComponent} from "./components/video-list/video-list.component";
 import {VideoDescriptionComponent} from "./components/video-description/video-description.component";
 import {VideoComponent} from "./components/video/video.component";
+import {FavoritesComponent} from "./components/favorites/favorites.component";
 
 
 const appRoutes: Routes = [
@@ -15,6 +16,7 @@ const appRoutes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'video', component: VideoComponent, canActivate: [AuthGuard] },
   { path: 'videos', component: VideoListComponent, canActivate: [AuthGuard] },
+  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] },
   { path: 'description', component: VideoDescriptionComponent, canActivate: [AuthGuard] },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/videos', pathMatch: 'full' }

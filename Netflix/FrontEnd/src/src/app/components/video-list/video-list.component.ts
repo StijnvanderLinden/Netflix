@@ -5,26 +5,33 @@ import {Video} from "../../models/video";
 import {VideoService} from "../../services/video.service";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
+import {Profile} from "../../models/profile";
+import {FeatureService} from "../../services/feature.service";
+import {Feature} from "../../models/feature";
+import {Category} from "../../models/category";
 
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
-  styles: []
+  styleUrls: ['./video-list.component.css']
 })
 export class VideoListComponent implements OnInit {
 
-  currentUser: Account;
-  currentUserSubscription: Subscription;
+  profile: Profile;
   videos: Video[];
+  categories: Category[];
+  features: Feature[];
 
   constructor(private videoService: VideoService,
-              private authenticationService: AuthenticationService,
+              private featureService: FeatureService,
               private router: Router) {
-    this.currentUserSubscription = this.authenticationService.currentUser.subscribe(user => { this.currentUser = user; });
+    this.profile = JSON.parse(localStorage.getItem('currentProfile'));
   }
 
   ngOnInit() {
     this.videoService.getVideos().subscribe(videos => this.videos = videos);
+    this.videoService.getCategories().subscribe(categories => {this.categories = categories; console.log(this.categories)});
+    this.featureService.getFeatures(this.profile.id).subscribe(features => this.features = features);
   }
 
 }

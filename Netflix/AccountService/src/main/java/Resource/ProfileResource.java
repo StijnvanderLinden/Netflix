@@ -4,6 +4,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 import Model.Account;
 import Model.Profile;
+import Service.FeatureService;
 import Service.ProfileService;
 import java.util.List;
 import javax.annotation.security.PermitAll;
@@ -30,6 +31,9 @@ public class ProfileResource {
 
     @Inject
     ProfileService profileService;
+
+    @Inject
+    FeatureService featureService;
 
     @Operation(summary = "Returns a profile for a given identifier")
     @APIResponse(responseCode = "200", content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Account.class)))
@@ -71,7 +75,6 @@ public class ProfileResource {
     public Response createProfile(
         @RequestBody(required = true, content = @Content(mediaType = APPLICATION_JSON, schema = @Schema(implementation = Account.class)))
         @Valid Profile profile) {
-        System.out.println(profile);
         profile = profileService.persistProfile(profile);
         return Response.ok(profile).build();
     }

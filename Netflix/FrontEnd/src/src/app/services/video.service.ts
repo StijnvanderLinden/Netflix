@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Video} from "../models/video";
 import {Observable} from "rxjs";
+import {Category} from "../models/category";
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +19,9 @@ export class VideoService {
 
   getVideos(): Observable<Video[]> {
     return this.http.get<Video[]>(`${this.url}/video`);
+  }
+
+  getCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(`${this.url}/category`);
   }
 }

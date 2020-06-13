@@ -45,6 +45,7 @@ public class Receiver {
 
                     byte[] body = message.getBody();
                     Account account = GSON.fromJson(new String(body, UTF_8), Account.class);
+                    account.accountId = account.id;
                     account.id = null;
                     accountService.persistAccount(account);
                 }

@@ -58,6 +58,7 @@ export class AccountComponent implements OnInit {
     }
 
     this.loading = true;
+    this.account.id = this.currentUser.id;
     // @ts-ignore
     let profile: Profile = {id: null, username: this.form.username.value, account: this.account};
 
@@ -65,6 +66,7 @@ export class AccountComponent implements OnInit {
     .pipe(first())
     .subscribe(
       data => {
+        localStorage.setItem('currentProfile', JSON.stringify(data));
         this.router.navigate(['/videos']);
       },
       error => {

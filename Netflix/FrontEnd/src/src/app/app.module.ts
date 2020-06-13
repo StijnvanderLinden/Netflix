@@ -32,6 +32,7 @@ import { VideoDescriptionComponent } from './components/video-description/video-
 import { VideoListItemComponent } from './components/video-list-item/video-list-item.component';
 import { ProfileListItemComponent } from './components/profile-list-item/profile-list-item.component';
 import { VideoComponent } from './components/video/video.component';
+import { FavoritesComponent } from './components/favorites/favorites.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { VideoComponent } from './components/video/video.component';
     VideoDescriptionComponent,
     VideoListItemComponent,
     ProfileListItemComponent,
-    VideoComponent
+    VideoComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,

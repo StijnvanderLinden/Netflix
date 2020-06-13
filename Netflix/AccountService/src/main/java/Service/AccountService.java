@@ -21,7 +21,7 @@ public class AccountService {
     @Transactional(SUPPORTS)
     public Account findAccountById(Long id) {
         System.out.println(id);
-        return Account.find("id", id).firstResult();
+        return Account.find("account_id", id).firstResult();
     }
 
     public Account findAccountByName(String username) {

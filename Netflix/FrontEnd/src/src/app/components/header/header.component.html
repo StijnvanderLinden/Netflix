@@ -1,6 +1,9 @@
 <mat-toolbar color="primary">
     <mat-toolbar-row>
         <span>Netflix</span>
+        <ng-template [ngIf]="this.profile"><span class="example-spacer"></span>
+            <span>{{this.profile.username}}</span>
+        </ng-template>
         <span class="example-spacer"></span>
         <app-header-buttons></app-header-buttons>
     </mat-toolbar-row>

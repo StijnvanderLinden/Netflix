@@ -1,5 +1,10 @@
 <app-header></app-header>
 <div><h1>{{video.title}}</h1></div>
 <div><h4>{{video.description}}</h4></div>
-<div><img src="{{video.thumbnail}}" height="300"></div>
+<div>
+    <img src="{{video.thumbnail}}" height="300">
+    <button mat-icon-button (click)="favorite()" color="warn">
+        <mat-icon>{{icon}}</mat-icon>
+    </button>
+</div>
 <div><button mat-raised-button color="warn" (click)="play()">Watch</button></div>

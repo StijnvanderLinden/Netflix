@@ -51,8 +51,8 @@ public class VideoResource {
     @GET
     @PermitAll
     public Response getVideos() {
-        List<Video> accounts = videoService.findAllVideos();
-        return Response.ok(accounts).build();
+        List<Video> videos = videoService.findAllVideos();
+        return Response.ok(videos).build();
     }
 
     @Operation(summary = "Creates a video")

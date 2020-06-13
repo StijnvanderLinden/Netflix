@@ -17,6 +17,7 @@ export class ProfileListItemComponent implements OnInit {
   }
 
   clickProfile(){
+    localStorage.setItem('currentProfile', JSON.stringify(this.profile));
     this.router.navigate(["/videos"])
   }
 

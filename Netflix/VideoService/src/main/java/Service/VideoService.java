@@ -12,6 +12,7 @@ import main.java.Model.Video;
 @ApplicationScoped
 @Transactional(REQUIRED)
 public class VideoService {
+
     @Transactional(SUPPORTS)
     public List<Video> findAllVideos() {
         return Video.listAll();
@@ -22,9 +23,9 @@ public class VideoService {
         return Video.findById(id);
     }
 
-    public Video persistVideo(@Valid Video profile) {
-        Video.persist(profile);
-        return profile;
+    public Video persistVideo(@Valid Video video) {
+        Video.persist(video);
+        return video;
     }
 
     public Video updateVideo(@Valid Video video) {
@@ -35,7 +36,7 @@ public class VideoService {
         return entity;
     }
     public void deleteVideo(Long id) {
-        Video feature = Video.findById(id);
-        feature.delete();
+        Video video = Video.findById(id);
+        video.delete();
     }
 }

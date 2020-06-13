@@ -2,9 +2,9 @@ import {Profile} from "./profile";
 
 export class Account {
   id: number;
-  accountId: number;
   username: string;
   password: string;
+  profile: Profile;
   profiles: Profile[];
   token?: string;
 }
