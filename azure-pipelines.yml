@@ -19,38 +19,38 @@ stages:
     pool:
       vmImage: 'ubuntu-16.04'
     steps:
-      - task: Docker@2
-        displayName: 'Build and push the account image to container registry'
-        inputs:
-          command: buildAndPush
-          buildContext: $(Build.Repository.LocalPath)
-          repository: $(accountRepository)
-          dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
-          containerRegistry: 'Container Registry Connection'
-          tags: |
-            $(tag)
-      - task: Docker@2
-        displayName: 'Build and push the authentication image to container registry'
-        inputs:
-          command: buildAndPush
-          buildContext: $(Build.Repository.LocalPath)
-          repository: $(authenticationRepository)
-          dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
-          containerRegistry: 'Container Registry Connection'
-          tags: |
-            $(tag)
-      - task: Docker@2
-        displayName: 'Build and push the video image to container registry'
-        inputs:
-          command: buildAndPush
-          buildContext: $(Build.Repository.LocalPath)
-          repository: $(videoRepository)
-          dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
-          containerRegistry: 'Container Registry Connection'
-          tags: |
-           $(tag)
-      - publish: '$(Build.SourcesDirectory)/manifests'
-        artifact: manifests
+    - task: Docker@2
+      displayName: 'Build and push the account image to container registry'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(accountRepository)
+        dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: 'Build and push the authentication image to container registry'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(authenticationRepository)
+        dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: 'Build and push the video image to container registry'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(videoRepository)
+        dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
+        tags: |
+         $(tag)
+    - publish: '$(Build.SourcesDirectory)/manifests'
+      artifact: manifests
 
 - stage: 'Deploy'
   displayName: 'Deploy the container'
