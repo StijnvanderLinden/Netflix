@@ -14,7 +14,6 @@ variables:
   dockerRegistryServiceConnection: '8ad06e1e-6636-49e4-987e-8ed4ea6cb194'
   imageRepository: 'stijnvanderlindennetflix'
   containerRegistry: 'netflix19062.azurecr.io'
-  dockerfilePath: '**/Dockerfile'
   tag: '$(Build.BuildId)'
   imagePullSecret: 'netflix19062800543d2-auth'
 
@@ -36,7 +35,6 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
