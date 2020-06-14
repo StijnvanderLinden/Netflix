@@ -11,83 +11,83 @@ variables:
   WebAppName: 'Netflix'
 
 stages:
-  - stage: 'Build'
-    displayName: 'Build and push'
-    jobs:
-      - job: 'Build'
-        displayName: 'Build job'
-        pool:
-          vmImage: 'ubuntu-16.04'
-        steps:
-          - task: Docker@2
-            displayName: 'Build and push the account image to container registry'
-            inputs:
-              command: buildAndPush
-              buildContext: $(Build.Repository.LocalPath)
-              repository: $(accountRepository)
-              dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
-              containerRegistry: 'Container Registry Connection'
-              tags: |
-                $(tag)
-          - task: Docker@2
-            displayName: 'Build and push the authentication image to container registry'
-            inputs:
-              command: buildAndPush
-              buildContext: $(Build.Repository.LocalPath)
-              repository: $(authenticationRepository)
-              dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
-              containerRegistry: 'Container Registry Connection'
-              tags: |
-                $(tag)
-          - task: Docker@2
-            displayName: 'Build and push the video image to container registry'
-            inputs:
-              command: buildAndPush
-              buildContext: $(Build.Repository.LocalPath)
-              repository: $(videoRepository)
-              dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
-              containerRegistry: 'Container Registry Connection'
-              tags: |
-                $(tag)
-          - publish: '$(Build.SourcesDirectory)/manifests'
-            artifact: manifests
+- stage: 'Build'
+  displayName: 'Build and push'
+  jobs:
+  - job: 'Build'
+    displayName: 'Build job'
+    pool:
+      vmImage: 'ubuntu-16.04'
+    steps:
+      - task: Docker@2
+        displayName: 'Build and push the account image to container registry'
+        inputs:
+          command: buildAndPush
+          buildContext: $(Build.Repository.LocalPath)
+          repository: $(accountRepository)
+          dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
+          containerRegistry: 'Container Registry Connection'
+          tags: |
+            $(tag)
+      - task: Docker@2
+        displayName: 'Build and push the authentication image to container registry'
+        inputs:
+          command: buildAndPush
+          buildContext: $(Build.Repository.LocalPath)
+          repository: $(authenticationRepository)
+          dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
+          containerRegistry: 'Container Registry Connection'
+          tags: |
+            $(tag)
+      - task: Docker@2
+        displayName: 'Build and push the video image to container registry'
+        inputs:
+          command: buildAndPush
+          buildContext: $(Build.Repository.LocalPath)
+          repository: $(videoRepository)
+          dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
+          containerRegistry: 'Container Registry Connection'
+          tags: |
+           $(tag)
+      - publish: '$(Build.SourcesDirectory)/manifests'
+        artifact: manifests
 
-  - stage: 'Deploy'
-    displayName: 'Deploy the container'
-    dependsOn: Build
-    jobs:
-      - deployment: 'Deploy'
-        displayName: 'Deploy job'
-        pool:
-          vmImage: 'ubuntu-16.04'
-        environment: 'spike.default'
-        variables:
-          - group: Release
-        strategy:
-          runOnce:
-            deploy:
-              steps:
-                - download: current
-                  artifact: manifests
-                - task: KubernetesManifest@0
-                  displayName: Create imagePullSecret
-                  inputs:
-                    action: createSecret
-                    secretName: $(imagePullSecret)
-                    dockerRegistryEndpoint: 'Container Registry Connection'
-                    kubernetesServiceConnection: 'Kubernetes Cluster Connection'
-                    namespace: 'default'
-                - task: KubernetesManifest@0
-                  displayName: Deploy to Kubernetes cluster
-                  inputs:
-                    action: deploy
-                    kubernetesServiceConnection: 'Kubernetes Cluster Connection'
-                    namespace: 'default'
-                    manifests: |
-                      $(Pipeline.Workspace)/manifests/deployment.yml
-                      $(Pipeline.Workspace)/manifests/service.yml
-                    imagePullSecrets: |
-                      $(imagePullSecret)
-                    containers: |
-                      $(RegistryName)/$(webRepository):$(tag)
-                      $(RegistryName)/$(leaderboardRepository):$(tag)
+- stage: 'Deploy'
+  displayName: 'Deploy the container'
+  dependsOn: Build
+  jobs:
+  - deployment: 'Deploy'
+    displayName: 'Deploy job'
+    pool:
+      vmImage: 'ubuntu-16.04'
+    environment: 'spike.default'
+    variables:
+      - group: Release
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - download: current
+              artifact: manifests
+            - task: KubernetesManifest@0
+              displayName: Create imagePullSecret
+              inputs:
+                action: createSecret
+                secretName: $(imagePullSecret)
+                dockerRegistryEndpoint: 'Container Registry Connection'
+                kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+                namespace: 'default'
+            - task: KubernetesManifest@0
+              displayName: Deploy to Kubernetes cluster
+              inputs:
+                action: deploy
+                kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+                namespace: 'default'
+                manifests: |
+                  $(Pipeline.Workspace)/manifests/deployment.yml
+                  $(Pipeline.Workspace)/manifests/service.yml
+                imagePullSecrets: |
+                 $(imagePullSecret)
+                containers: |
+                  $(RegistryName)/$(webRepository):$(tag)
+                  $(RegistryName)/$(leaderboardRepository):$(tag)
