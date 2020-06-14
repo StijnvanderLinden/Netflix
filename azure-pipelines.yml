@@ -13,7 +13,7 @@ variables:
 stages:
 - stage: 'Build'
   displayName: 'Build and push'
-  jobs:
+  jobs:  
   - job: 'Build'
     displayName: 'Build job'
     pool:
@@ -24,7 +24,7 @@ stages:
       inputs:
         command: buildAndPush
         buildContext: $(Build.Repository.LocalPath)
-        repository: $(accountRepository)
+        repository: $(webRepository)
         dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
         containerRegistry: 'Container Registry Connection'
         tags: |
@@ -34,7 +34,7 @@ stages:
       inputs:
         command: buildAndPush
         buildContext: $(Build.Repository.LocalPath)
-        repository: $(authenticationRepository)
+        repository: $(webRepository)
         dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
         containerRegistry: 'Container Registry Connection'
         tags: |
@@ -44,7 +44,7 @@ stages:
       inputs:
         command: buildAndPush
         buildContext: $(Build.Repository.LocalPath)
-        repository: $(videoRepository)
+        repository: $(leaderboardRepository)
         dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
         containerRegistry: 'Container Registry Connection'
         tags: |
@@ -67,27 +67,27 @@ stages:
       runOnce:
         deploy:
           steps:
-            - download: current
-              artifact: manifests
-            - task: KubernetesManifest@0
-              displayName: Create imagePullSecret
-              inputs:
-                action: createSecret
-                secretName: $(imagePullSecret)
-                dockerRegistryEndpoint: 'Container Registry Connection'
-                kubernetesServiceConnection: 'Kubernetes Cluster Connection'
-                namespace: 'default'
-            - task: KubernetesManifest@0
-              displayName: Deploy to Kubernetes cluster
-              inputs:
-                action: deploy
-                kubernetesServiceConnection: 'Kubernetes Cluster Connection'
-                namespace: 'default'
-                manifests: |
-                  $(Pipeline.Workspace)/manifests/deployment.yml
-                  $(Pipeline.Workspace)/manifests/service.yml
-                imagePullSecrets: |
-                 $(imagePullSecret)
-                containers: |
-                  $(RegistryName)/$(webRepository):$(tag)
-                  $(RegistryName)/$(leaderboardRepository):$(tag)
+          - download: current
+            artifact: manifests
+          - task: KubernetesManifest@0
+            displayName: Create imagePullSecret
+            inputs:
+              action: createSecret
+              secretName: $(imagePullSecret)
+              dockerRegistryEndpoint: 'Container Registry Connection'
+              kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+              namespace: 'default'
+          - task: KubernetesManifest@0
+            displayName: Deploy to Kubernetes cluster
+            inputs:
+              action: deploy
+              kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+              namespace: 'default'
+              manifests: |
+                $(Pipeline.Workspace)/manifests/deployment.yml
+                $(Pipeline.Workspace)/manifests/service.yml
+              imagePullSecrets: |
+                $(imagePullSecret)
+              containers: |
+                $(RegistryName)/$(webRepository):$(tag)
+                $(RegistryName)/$(leaderboardRepository):$(tag)
