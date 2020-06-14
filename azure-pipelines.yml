@@ -62,7 +62,7 @@ stages:
       vmImage: 'ubuntu-16.04'
     environment: 'spike.default'
     variables:
-      - group: Release
+    - group: Release
     strategy:
       runOnce:
         deploy:
