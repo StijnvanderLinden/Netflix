@@ -8,7 +8,7 @@ import {AccountService} from "./account.service";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private url = 'http://localhost:8083/api';
+  private url = 'http://172.18.0.3:8083/api';
   private currentUserSubject: BehaviorSubject<Account>;
   public currentUser: Observable<Account>;
 

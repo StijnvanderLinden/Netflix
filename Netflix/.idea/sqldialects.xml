@@ -2,6 +2,6 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/VideoService/src/main/resources/import.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/infrastructure/db-init/initialize-databases.sql" dialect="PostgreSQL" />
+    <file url="file://$PROJECT_DIR$/infrastructure/db-init/init.sql" dialect="PostgreSQL" />
   </component>
 </project>

@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 })
 export class ProfileService {
 
-  private url = 'http://localhost:8084/api';
+  private url = 'http://netflix-account:8084/api';
 
   constructor(private http: HttpClient) { }
 

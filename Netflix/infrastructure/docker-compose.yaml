@@ -1,9 +1,52 @@
-version: "3"
+version: "3.3"
 services:
-    database:
-        image: "postgres:10.5"
-        container_name: "super-database"
+    netflix-database:
+        image: "postgres:10.4"
+        container_name: "netflix-database"
         ports:
             - "5432:5432"
+        build:
+            context: ./db-init
+            dockerfile: Dockerfile
+
+    frontend:
+        container_name: "netflix-frontend"
+        build:
+            context: ../FrontEnd/src
+            dockerfile: Dockerfile
         volumes:
-            - ./db-init/initialize-databases.sql:/docker-entrypoint-initdb.d/init.sql
+            - '.:/src'
+            - '/src/node_modules'
+        ports:
+            - 8081:4200
+
+    video:
+        container_name: "netflix-video"
+        build:
+            context: ../VideoService
+            dockerfile: Dockerfile
+        depends_on:
+            - netflix-database
+        ports:
+            - 8085:8085
+
+#    account:
+#        container_name: "netflix-account"
+#        build:
+#            context: ../AccountService
+#            dockerfile: Dockerfile
+#        depends_on:
+#          - netflix-database
+#        ports:
+#            - 8084:8084
+#
+#    authentication:
+#        container_name: "netflix-authentication"
+#        build:
+#            context: ../AuthenticationService
+#            dockerfile: Dockerfile
+#        depends_on:
+#            - netflix-database
+#        ports:
+#            - 8083:8083
+

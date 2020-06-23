@@ -9,7 +9,7 @@ import {Category} from "../models/category";
 })
 export class VideoService {
 
-  private url = 'http://localhost:8085/api';
+  private url = 'http://netflix-video:8085/api';
 
   constructor(private http: HttpClient) { }
 

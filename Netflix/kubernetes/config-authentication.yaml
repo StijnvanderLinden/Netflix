@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+    port: "8083"
+    database: "jdbc:postgresql://authentication-db:5432/authentication-db"
+kind: ConfigMap
+metadata:
+    name: authentication-config
