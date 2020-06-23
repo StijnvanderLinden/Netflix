@@ -1,77 +1,91 @@
-# Deploy to Azure Kubernetes Service
-# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
-# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
-
 trigger:
-- master
-
-resources:
-- repo: self
+  - 'master'
 
 variables:
-
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '8ad06e1e-6636-49e4-987e-8ed4ea6cb194'
-  imageRepository: 'stijnvanderlindennetflix'
-  containerRegistry: 'netflix19062.azurecr.io'
+  buildConfiguration: 'Release'
+  accountRepository: 'account'
+  authenticationRepository: 'authentication'
+  videoRepository: 'video'
   tag: '$(Build.BuildId)'
-  imagePullSecret: 'netflix19062800543d2-auth'
-
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-  
+  imagePullSecret: 'secret'
+  WebAppName: 'Netflix'
 
 stages:
-- stage: Build
-  displayName: Build stage
+- stage: 'Build'
+  displayName: 'Build and push'
   jobs:  
-  - job: Build
-    displayName: Build
+  - job: 'Build'
+    displayName: 'Build job'
     pool:
-      vmImage: $(vmImageName)
+      vmImage: 'ubuntu-16.04'
     steps:
     - task: Docker@2
-      displayName: Build and push an image to container registry
+      displayName: 'Build and push the account image to container registry'
       inputs:
         command: buildAndPush
-        repository: $(imageRepository)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(webRepository)
+        dockerfile: '$(Build.SourcesDirectory)/AccountService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
         tags: |
           $(tag)
-          
-    - upload: manifests
+    - task: Docker@2
+      displayName: 'Build and push the authentication image to container registry'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(webRepository)
+        dockerfile: '$(Build.SourcesDirectory)/AuthenticationService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: 'Build and push the video image to container registry'
+      inputs:
+        command: buildAndPush
+        buildContext: $(Build.Repository.LocalPath)
+        repository: $(leaderboardRepository)
+        dockerfile: '$(Build.SourcesDirectory)/VideoService/src/main/docker/Dockerfile'
+        containerRegistry: 'Container Registry Connection'
+        tags: |
+         $(tag)
+    - publish: '$(Build.SourcesDirectory)/manifests'
       artifact: manifests
 
-- stage: Deploy
-  displayName: Deploy stage
+- stage: 'Deploy'
+  displayName: 'Deploy the container'
   dependsOn: Build
-
   jobs:
-  - deployment: Deploy
-    displayName: Deploy
+  - deployment: 'Deploy'
+    displayName: 'Deploy job'
     pool:
-      vmImage: $(vmImageName)
-    environment: 'StijnvanderLindenNetflix-5384.default'
+      vmImage: 'ubuntu-16.04'
+    environment: 'spike.default'
     strategy:
       runOnce:
         deploy:
           steps:
+          - download: current
+            artifact: manifests
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
             inputs:
               action: createSecret
               secretName: $(imagePullSecret)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
-              
+              dockerRegistryEndpoint: 'Container Registry Connection'
+              kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+              namespace: 'default'
           - task: KubernetesManifest@0
             displayName: Deploy to Kubernetes cluster
             inputs:
               action: deploy
+              kubernetesServiceConnection: 'Kubernetes Cluster Connection'
+              namespace: 'default'
               manifests: |
                 $(Pipeline.Workspace)/manifests/deployment.yml
                 $(Pipeline.Workspace)/manifests/service.yml
               imagePullSecrets: |
                 $(imagePullSecret)
               containers: |
-                $(containerRegistry)/$(imageRepository):$(tag)
-
+                $(RegistryName)/$(webRepository):$(tag)
+                $(RegistryName)/$(leaderboardRepository):$(tag)
