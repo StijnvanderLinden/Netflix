@@ -1,14 +1,10 @@
 Service\AccountService.class
 Model\Feature.class
 Service\FeatureService.class
-ServiceBus\Sender.class
 Model\Account.class
-ServiceBus\Receiver.class
 Model\Profile.class
 Resource\ProfileResource.class
-ServiceBus\Receiver$1.class
 Model\Video.class
 Resource\FeatureResource.class
 Resource\AccountResource.class
-ServiceBus\Sender$1.class
 Service\ProfileService.class

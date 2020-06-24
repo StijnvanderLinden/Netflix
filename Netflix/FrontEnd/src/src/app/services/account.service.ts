@@ -9,7 +9,7 @@ import {Feature} from "../models/feature";
 })
 export class AccountService {
 
-  private url = 'http://localhost:8084/api';
+  private url = 'http://192.168.99.107:8084/api';
   account: Account;
 
   constructor(private http: HttpClient) { }

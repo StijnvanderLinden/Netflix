@@ -68,7 +68,7 @@ public class AccountResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response register(Account account) throws Exception {
         Account account1 = accountService.persistAccount(account);
-        sender.sendAccount(account);
+//        sender.sendAccount(account);
         return Response.ok(account1).build();
     }
 

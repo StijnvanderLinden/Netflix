@@ -30,23 +30,23 @@ services:
         ports:
             - 8085:8085
 
-#    account:
-#        container_name: "netflix-account"
-#        build:
-#            context: ../AccountService
-#            dockerfile: Dockerfile
-#        depends_on:
-#          - netflix-database
-#        ports:
-#            - 8084:8084
-#
-#    authentication:
-#        container_name: "netflix-authentication"
-#        build:
-#            context: ../AuthenticationService
-#            dockerfile: Dockerfile
-#        depends_on:
-#            - netflix-database
-#        ports:
-#            - 8083:8083
+    account:
+        container_name: "netflix-account"
+        build:
+            context: ../AccountService
+            dockerfile: Dockerfile
+        depends_on:
+          - netflix-database
+        ports:
+            - 8084:8084
+
+    authentication:
+        container_name: "netflix-authentication"
+        build:
+            context: ../AuthenticationService
+            dockerfile: Dockerfile
+        depends_on:
+            - netflix-database
+        ports:
+            - 8083:8083
 

@@ -10,7 +10,7 @@ import {Video} from "../models/video";
 })
 export class FeatureService {
 
-  private url = 'http://netflix-account:8084/api';
+  private url = 'http://192.168.99.107:8084/api';
 
   constructor(private http: HttpClient) { }
 
